@@ -1,4 +1,4 @@
-FROM centos:centos7.7.1908
+FROM centos:centos8
 
 RUN su - root \
     && echo 'ftp.byfly.by 82.209.230.71' >> /etc/resolv.conf \
