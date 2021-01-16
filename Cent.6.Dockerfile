@@ -1,4 +1,4 @@
-FROM centos:centos6.8
+FROM centos:centos8
 
 RUN ls
 
