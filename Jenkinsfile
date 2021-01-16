@@ -11,15 +11,32 @@ pipeline {
 		}
 	}
 	
-   	 stage('Centos_6') {
+        stage('Download') {
+	parallel {
+            stage('Centos_7') {
+            agent {
+                dockerfile { 
+		    filename 'Cent.7.Dockerfile'
+                    label 'master'
+		    additionalBuildArgs '--network=host'
+                    args '-u root -v /tmp/nagios:/download:rw'
+                }
+            }
+            steps {
+                sh """
+                    yum install -y --downloadonly --downloaddir=/download nagios-plugins-all
+                    ls -l /download
+                """
+            }}
+	    stage('Centos_6') {
             agent {
                 dockerfile {
                     label 'master'
                     filename 'Cent.6.Dockerfile'
 		    additionalBuildArgs '--network=host'
                     args '-u root -v /tmp/nagios:/download:rw'
-               }
-         }
+                }
+            }
             steps {
                 sh """
                     yum install -y --downloadonly --downloaddir=/download nagios-plugins-all
@@ -39,4 +56,4 @@ pipeline {
 		}
 	}
     }
-
+}
