@@ -7,7 +7,7 @@ RUN echo 'ip_resolve=4' >>/etc/yum.conf \
     && mkdir /download \
     && ping mirror.datacenter.by -c 3 \
     && ping wcss.pl -c 3 \
-    && ping centos1.hti.pl
+    && ping centos1.hti.pl -c 3
     
 
 VOLUME ["/download"]
